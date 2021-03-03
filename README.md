@@ -23,4 +23,4 @@ Você poderá encontrar o notebook e a versão convertida para Markdown nos segu
 | Formato | Link |
 |--|--|
 |Notebook|[.ipynb](https://github.com/athossampayo/SaoPauloRentPrediction/blob/main/Notebook/SaoPauloRentPrediction-Notebook.ipynb)|
-|Markdown|[.md](https://github.com/athossampayo/SaoPauloRentPrediction/blob/main/Markdown/Estruturado.md)|
+|Markdown|[.md](https://github.com/athossampayo/SaoPauloRentPrediction/blob/main/Markdown/SaoPauloRentPrediction-Notebook.md)|

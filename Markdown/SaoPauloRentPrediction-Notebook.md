@@ -3,8 +3,8 @@
 
 ## Motivação e proposta
 
-+ Nesse projeto irá ser desenvolvido um Algoritmo de Machine Learning capaz de recomendar o valor a se cobrar no aluguel de um imóvel a partir de suas características (nº de quartos, vaga na garagem, metragem, etc). Para isso, a partir dos cinceitos de ETl (Extract-Transform-Load), irei extrair os dados de imóveis localizados em São Paulo no aplicativo [QuintoAndar](http://quintoandar.com.br/), explorá-lo estatísticamente e depois, escolher o melhor algoritmo para o trabalho.
-+ Esse projeto terá utilidade para que os usuários saibam qual o valor de mercado esperado para seus imóveis no momento de anúnciar. Além disso, será de grande importância para meu aprendizado, colocando à prova meus conhecimentos até hoje estudados. 
++ Nesse projeto desenvolvi um Algoritmo de Machine Learning capaz de recomendar o valor a se cobrar no aluguel de um imóvel a partir de suas características (nº de quartos, vaga na garagem, metragem, etc). Para isso, a partir dos cinceitos de ETl (Extract-Transform-Load), extraí os dados de imóveis localizados em São Paulo no aplicativo [QuintoAndar](http://quintoandar.com.br/), explorei-os estatísticamente e depois, escolhi o melhor algoritmo para o trabalho.
++ Esse projeto tem utilidade para que os usuários saibam qual o valor de mercado esperado para seus imóveis no momento de anúnciar. Além disso, é de grande importância para meu aprendizado, colocando à prova meus conhecimentos até hoje estudados.
 
 ## Dados
 
@@ -24,7 +24,7 @@ Nesse momento tenta-se conhecer melhor o dataset, a partir de:
    
 **3. Formulação das hipóteses**
 
-Hipóteses sobre os dados? Talvez sobre valorXregiao?
+Hipóteses sobre os dados serão formuladas
     
 **4. Seleção de features para Machine Learning**
 
@@ -52,7 +52,7 @@ import matplotlib.pyplot     as plt
 import matplotlib.ticker     as mtick
 import numpy                 as np
 import warnings
-import gc
+import gc                    #usarei o Garbage Collector para forçar a limpeza de memória e garantir que não teremos erros
 from IPython.display         import Markdown, display
 from sklearn.ensemble        import RandomForestClassifier
 from sklearn.preprocessing   import LabelEncoder, OneHotEncoder, PolynomialFeatures, FunctionTransformer
@@ -76,7 +76,7 @@ def printmd(string, color=None):
 
 
 ```python
-db = pd.read_csv('aluguel_unique.csv')
+db = pd.read_csv('../CSV/aluguel_unique.csv')
 ```
 
 ## 2. Análise exploratória
@@ -159,54 +159,54 @@ db.sample(2)
   </thead>
   <tbody>
     <tr>
-      <th>5356</th>
-      <td>5356</td>
-      <td>6021ee1d3d6af61e72c96cd3</td>
-      <td>893036920</td>
-      <td>true</td>
-      <td>Rua Apiacás</td>
-      <td>893036920</td>
-      <td>["Fachada","Sala Quarto","Sala Quarto","Sala Q...</td>
-      <td>StudioOuKitchenette</td>
-      <td>25</td>
+      <th>9055</th>
+      <td>9055</td>
+      <td>6021ee1d3d6af61e72c97b46</td>
+      <td>893226204</td>
+      <td>3</td>
+      <td>Rua Fradique Coutinho</td>
+      <td>893226204</td>
+      <td>["Sala","Sala","Sala","Sala","Sala"]</td>
+      <td>Apartamento</td>
+      <td>130</td>
       <td>True</td>
       <td>false</td>
-      <td>1550</td>
-      <td>capa893036920208_33407678239857IMG0012.jpg</td>
-      <td>["893036920-208.33407678239857IMG0012.jpg","89...</td>
-      <td>1601</td>
+      <td>5950</td>
+      <td>capa893226204592_5580237014622021_01Beritheia5...</td>
+      <td>["893226204-592.5580237014622021.01Beritheia5A...</td>
+      <td>8759</td>
       <td>São Paulo</td>
       <td>ACCEPT_NEW</td>
       <td>False</td>
-      <td>false</td>
-      <td>false</td>
-      <td>NaN</td>
-      <td>Perdizes</td>
+      <td>2614</td>
+      <td>3</td>
+      <td>["RENT_PRICE_DECREASED"]</td>
+      <td>Vila Madalena</td>
     </tr>
     <tr>
-      <th>6292</th>
-      <td>6292</td>
-      <td>6021ee1d3d6af61e72c9707b</td>
-      <td>893098634</td>
-      <td>3</td>
-      <td>Rua Artur de Azevedo</td>
-      <td>893098634</td>
-      <td>["Sala de estar","Sala de estar","Sala de esta...</td>
+      <th>6056</th>
+      <td>6056</td>
+      <td>6021ee1d3d6af61e72c96f8f</td>
+      <td>892988686</td>
+      <td>true</td>
+      <td>Rua Catumbi</td>
+      <td>892988686</td>
+      <td>["Sala","Sala","Sala","Varanda Sala","Quarto"]</td>
       <td>Apartamento</td>
-      <td>120</td>
+      <td>32</td>
       <td>True</td>
       <td>false</td>
-      <td>3600</td>
-      <td>capa893098634902_70319427227860001892863842658...</td>
-      <td>["893098634-902.70319427227860001892863842658....</td>
-      <td>6478</td>
+      <td>1300</td>
+      <td>capa892988686520_9124767260118LUI8276.jpg</td>
+      <td>["892988686-520.9124767260118LUI8276.jpg","892...</td>
+      <td>1643</td>
       <td>São Paulo</td>
       <td>ACCEPT_NEW</td>
       <td>False</td>
-      <td>2760</td>
-      <td>2</td>
-      <td>NaN</td>
-      <td>Pinheiros</td>
+      <td>300</td>
+      <td>false</td>
+      <td>["RENT_PRICE_DECREASED"]</td>
+      <td>Belém</td>
     </tr>
   </tbody>
 </table>
@@ -286,24 +286,24 @@ for i in colunas:
     6         24
     8         12
     7         10
-    10         2
     12         2
+    10         2
+    11         1
     14         1
     9          1
-    11         1
     Name: fields.quartos, dtype: int64
     =================================================
-    Rua Bela Cintra                                                                       103
-    Avenida Nove de Julho                                                                  85
-    Rua João Cachoeira                                                                     76
-    Rua da Consolação                                                                      72
-    Avenida São João                                                                       70
-                                                                                         ... 
-    Rua General Isidoro Dias Lopes                                                          1
-    Rua Montesquiéu                                                                         1
-    Oscar Cintra Gordinho                                                                   1
-    R. Alonso Calhamares, 13 - Jardim Analia Franco, São Paulo - Sp, 03335-080, Brasil      1
-    Rua Doutor Fomm                                                                         1
+    Rua Bela Cintra               103
+    Avenida Nove de Julho          85
+    Rua João Cachoeira             76
+    Rua da Consolação              72
+    Avenida São João               70
+                                 ... 
+    Rua Enjolras Vampré             1
+    Rua Sousa Breves                1
+    Rua Fidélis Papini              1
+    Avenida Dória                   1
+    Rua Ministro Salgado Filho      1
     Name: fields.endereco, Length: 2554, dtype: int64
     =================================================
     Apartamento            7201
@@ -318,27 +318,27 @@ for i in colunas:
     35     285
     70     249
           ... 
-    416      1
-    363      1
-    577      1
-    445      1
-    372      1
+    362      1
+    999      1
+    271      1
+    460      1
+    351      1
     Name: fields.area, Length: 376, dtype: int64
     =================================================
     True    10034
     Name: fields.for_rent, dtype: int64
     =================================================
-    false        6841
-    3000000        66
-    1200000        66
-    350000         56
-    1100000        50
-                 ... 
-    877000          1
-    2520000         1
-    699990          1
-    235000000       1
-    3250000         1
+    false      6841
+    1200000      66
+    3000000      66
+    350000       56
+    1100000      50
+               ... 
+    2150000       1
+    1010000       1
+    379000        1
+    949000        1
+    1145000       1
     Name: fields.sale_price, Length: 499, dtype: int64
     =================================================
     2500    261
@@ -347,24 +347,24 @@ for i in colunas:
     3500    233
     2200    190
            ... 
-    7893      1
-    6460      1
-    3357      1
-    1211      1
-    4321      1
+    2801      1
+    2564      1
+    1797      1
+    4828      1
+    1005      1
     Name: fields.aluguel, Length: 1639, dtype: int64
     =================================================
     4282     24
-    2842     20
     3765     20
+    2842     20
     1343     16
     2045     14
              ..
-    9658      1
-    13488     1
-    10224     1
-    8218      1
-    7472      1
+    3610      1
+    8395      1
+    11133     1
+    10646     1
+    3772      1
     Name: fields.custo, Length: 5649, dtype: int64
     =================================================
     São Paulo             10032
@@ -386,11 +386,11 @@ for i in colunas:
     500       75
     400       74
             ... 
-    3034       1
-    2091       1
-    2850       1
-    6754       1
-    4368       1
+    1569       1
+    1581       1
+    2553       1
+    7334       1
+    2308       1
     Name: fields.condo_iptu, Length: 2675, dtype: int64
     =================================================
     true     4579
@@ -402,8 +402,8 @@ for i in colunas:
     6          59
     8          33
     7          11
-    10          2
     9           2
+    10          2
     20          1
     Name: fields.vagas, dtype: int64
     =================================================
@@ -412,8 +412,8 @@ for i in colunas:
     ["RENT_ON_TERMINATION","VISITS_UNAVAILABLE"]                                     325
     ["NEW_AD","RENT_PRICE_DECREASED"]                                                148
     ["RENT_ON_TERMINATION","NEW_AD","VISITS_UNAVAILABLE"]                             83
-    ["NEW_AD","VISITS_UNAVAILABLE"]                                                   10
     ["RENT_ON_TERMINATION"]                                                           10
+    ["NEW_AD","VISITS_UNAVAILABLE"]                                                   10
     ["VISITS_UNAVAILABLE"]                                                             9
     ["RENT_ON_TERMINATION","NEW_AD","RENT_PRICE_DECREASED","VISITS_UNAVAILABLE"]       8
     ["RENT_ON_TERMINATION","RENT_PRICE_DECREASED","VISITS_UNAVAILABLE"]                5
@@ -426,11 +426,11 @@ for i in colunas:
     Santa Cecília            594
     Moema                    441
                             ... 
-    Jardim Santa Emília        1
-    São João Clímaco           1
-    Chácara Santo Antonio      1
+    Vila Constança             1
     Piqueri                    1
     Vila Prado                 1
+    São João Clímaco           1
+    Chácara Santo Antonio      1
     Name: fields.regiao_nome, Length: 85, dtype: int64
     =================================================
     
@@ -1204,42 +1204,42 @@ db[db['fields.sale_price'].isna()].sample(2)
   </thead>
   <tbody>
     <tr>
-      <th>5066</th>
-      <td>892888709</td>
+      <th>2423</th>
+      <td>893222527</td>
       <td>1</td>
-      <td>Rua Dona Veridiana</td>
-      <td>StudioOuKitchenette</td>
-      <td>45</td>
+      <td>Alameda Itu</td>
+      <td>Apartamento</td>
+      <td>51</td>
       <td>True</td>
       <td>NaN</td>
-      <td>1700</td>
-      <td>2207</td>
+      <td>2100</td>
+      <td>3516</td>
       <td>São Paulo</td>
       <td>ACCEPT_NEW</td>
       <td>False</td>
-      <td>451.0</td>
-      <td>0</td>
+      <td>1347.0</td>
+      <td>1</td>
       <td>NaN</td>
-      <td>Santa Cecília</td>
+      <td>Jardim Paulista</td>
     </tr>
     <tr>
-      <th>7627</th>
-      <td>893019157</td>
-      <td>1</td>
-      <td>Rua Doutora Neyde Apparecida Sollitto</td>
-      <td>StudioOuKitchenette</td>
-      <td>30</td>
+      <th>2445</th>
+      <td>893234481</td>
+      <td>3</td>
+      <td>Rua Senador Felício dos Santos</td>
+      <td>Apartamento</td>
+      <td>88</td>
       <td>True</td>
       <td>NaN</td>
-      <td>1350</td>
-      <td>1395</td>
+      <td>2300</td>
+      <td>3126</td>
       <td>São Paulo</td>
       <td>ACCEPT_NEW</td>
       <td>False</td>
-      <td>0.0</td>
-      <td>0</td>
+      <td>750.0</td>
+      <td>1</td>
       <td>NaN</td>
-      <td>Vila Clementino</td>
+      <td>Liberdade</td>
     </tr>
   </tbody>
 </table>
@@ -1763,8 +1763,8 @@ for i in categoricas:
     ["RENT_ON_TERMINATION","VISITS_UNAVAILABLE"]                                     325
     ["NEW_AD","RENT_PRICE_DECREASED"]                                                148
     ["RENT_ON_TERMINATION","NEW_AD","VISITS_UNAVAILABLE"]                             83
-    ["NEW_AD","VISITS_UNAVAILABLE"]                                                   10
     ["RENT_ON_TERMINATION"]                                                           10
+    ["NEW_AD","VISITS_UNAVAILABLE"]                                                   10
     ["VISITS_UNAVAILABLE"]                                                             9
     ["RENT_ON_TERMINATION","NEW_AD","RENT_PRICE_DECREASED","VISITS_UNAVAILABLE"]       8
     ["RENT_ON_TERMINATION","RENT_PRICE_DECREASED","VISITS_UNAVAILABLE"]                5
@@ -1783,10 +1783,10 @@ for i in categoricas:
     Moema                    440
                             ... 
     Vila Amália                1
-    Piqueri                    1
     Chácara Santo Antonio      1
-    São João Clímaco           1
     Vila Constança             1
+    Piqueri                    1
+    Vila Prado                 1
     Name: fields.regiao_nome, Length: 84, dtype: int64
     
 
@@ -1894,7 +1894,7 @@ bplt.yaxis.set_major_formatter(mtick.StrMethodFormatter('R$ {x}'))
 
 
 - Possível interpretação: <br>
-    A parentemente quanto maior a mediana de custo em um bairro, mais variam os mínimos e máximos também. Por exemplo, se comparar-mos o bairro da Mooca, que tem mediana de R\\$2.500,00 e o bairro de Moema, que tem mediana acima de R\\$5.000,00. É possivel perceber que em Moema os valores máximos e mínimos variam de ~R\\$1.500,00 até ~R\\$17.500,00, enquanto na Mooca, variam de ~R\\$1.250,00 até ~R\\$6.250,00
+    <span class="tex2jax_ignore">&emsp;A parentemente quanto maior a mediana de custo em um bairro, mais variam os mínimos e máximos também. Por exemplo, se comparar-mos o bairro da Mooca, que tem mediana de R$2.500,00 e o bairro de Moema, que tem mediana acima de R$5.000,00. É possivel perceber que em Moema os valores máximos e mínimos variam de ~R$1.500,00 até ~R$17.500,00, enquanto na Mooca, variam de ~R$1.250,00 até ~R$6.250,00</span>
 
 ## 3. Formulação das hipóteses
 
@@ -2662,7 +2662,7 @@ gc.collect()
 
 
 
-    66
+    22
 
 
 
@@ -2772,7 +2772,7 @@ def transformData(data):
 
 
 ```python
-db_pipe = pd.read_csv('aluguel_unique.csv')
+db_pipe = pd.read_csv('../CSV/aluguel_unique.csv')
 db_pipe = transformData(db)
 cols = db_pipe.columns.to_list()
 
@@ -2818,7 +2818,7 @@ Pipeline.fit(X_train, y_train)
 
 
     Pipeline(steps=[('functiontransformer',
-                     FunctionTransformer(func=<function addMissingCols at 0x000001A79144E550>)),
+                     FunctionTransformer(func=<function addMissingCols at 0x000001EA76039820>)),
                     ('standardscaler', StandardScaler()),
                     ('polynomialfeatures', PolynomialFeatures()),
                     ('ridge', Ridge())])
@@ -2884,20 +2884,20 @@ apartamento = addMissingCols(apartamento)
 
 X_apartamento = apartamento.drop(['fields.aluguel'], axis=1)
 y_apartamento = apartamento['fields.aluguel']
-apartamento_pred = Pipeline.predict(X_apartamento)[0].round(2)
-print("Seu imóvel deve ser anúnciado, segundo o mercado, pelo valor de: R${pred}".format(pred=apartamento_pred))
+apartamento_pred = str(Pipeline.predict(X_apartamento)[0].round(2)).replace('.', ',')
+print("Seu imóvel deve ser anunciado, segundo o mercado, pelo valor de: R${pred}".format(pred=apartamento_pred))
 
 ```
 
-    Seu imóvel deve ser anúnciado, segundo o mercado, pelo valor de: R$2555.52
+    Seu imóvel deve ser anunciado, segundo o mercado, pelo valor de: R$2555,52
     
 
 ## 7. Conclusão
 
-Com esse projeto, foi possível aprender importântes lições de Análise e Ciência de Dados:
+Com esse projeto, foi possível aprender importantes lições de Análise e Ciência de Dados:
 + Mesmo com bom tratamento e feature engineering, a quantidade total de dados vai ter grande peso no resultado e acurácia finais.
 + Uma análise exploratória profunda, e muitas vezes, criativa, auxilia muito no entendimento dos dados, além de abrir chances para correções de inconsistências logo no inicio do processo.
-+ Os dados, mesmo que vindo de uma API de produção consistênte, sempre devem ser revisados e conferidos em busca de erros de tipagem, de digitação, entre outros.
++ Os dados, mesmo que vindo de uma API de produção consistente, sempre devem ser revisados e conferidos em busca de erros de tipagem, de digitação, entre outros.
 + A forma como se dá a apresentação do processo de pensamento e geração de insights deve ser cuidadosamente trabalhada para garantir passar a mensagem corretamente para futuros leitores e revisadores do projeto.
 
 Além disso, o projeto acima me auxiliou a definir os próximos focos de estudo:
